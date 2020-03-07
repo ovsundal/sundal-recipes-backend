@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "type": "module",
   "scripts": {
     "start": "nodemon app",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,8 +19,11 @@
   },
   "homepage": "https://github.com/ovsundal/express-backend-boilerplate#readme",
   "dependencies": {
+    "body-parser": "latest",
     "express": "^4.17.1",
-    "nodemon": "^2.0.2"
+    "express-validator": "^6.4.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0"
