@@ -19,10 +19,12 @@
   },
   "homepage": "https://github.com/ovsundal/express-backend-boilerplate#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "latest",
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
     "mongoose": "^5.9.3",
+    "mongoose-unique-validator": "^2.0.3",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1"
   },
