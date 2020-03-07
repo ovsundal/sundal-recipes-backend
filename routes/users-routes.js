@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post(
   "/signup",
-  [check("username").notEmpty(), check("password").isLength({ min: 5 })],
+  [check("username").notEmpty(), check("password").isLength({ min: 6 })],
   usersController.signup
 );
 
