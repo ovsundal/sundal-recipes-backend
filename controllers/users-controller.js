@@ -30,4 +30,40 @@ const signup = async (req, res, next) => {
   await res.status(201).json({ userId: createdUser.id, username });
 };
 
+const login = async (req, res, next) => {
+  const { username, password } = req.body;
+  let existingUser;
+
+  try {
+    existingUser = await User.findOne({ username });
+  } catch (e) {
+    return next(
+      new HttpError("Logging in failed, please try again later", 500)
+    );
+  }
+
+  if (!existingUser) {
+    return next(new HttpError("Invalid credentials, could not login", 401));
+  }
+
+  let passwordIsValid = false;
+
+  try {
+    passwordIsValid = await bcrypt.compare(password, existingUser.password);
+  } catch (e) {
+    return next(
+      new HttpError("Logging in failed, please try again later", 500)
+    );
+  }
+
+  if (!passwordIsValid) {
+    return next(new HttpError("Invalid credentials, could not login", 401));
+  }
+
+  res.json({
+    username
+  });
+};
+
 exports.signup = signup;
+exports.login = login;
