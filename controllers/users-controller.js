@@ -28,6 +28,7 @@ const signup = async (req, res, next) => {
     return next(new HttpError("Signing up failed", 500));
   }
 
+  // add JWT
   let token;
 
   try {
@@ -71,8 +72,20 @@ const login = async (req, res, next) => {
     return next(new HttpError("Invalid credentials, could not login", 401));
   }
 
+  // add JWT
+  let token;
+
+  try {
+    token = jwt.sign({ userId: existingUser.id }, process.env.JWT_KEY, {
+      expiresIn: "1h"
+    });
+  } catch (e) {
+    return next(new HttpError("Logging in failed", 500));
+  }
+
   res.json({
-    username
+    username,
+    token
   });
 };
 
