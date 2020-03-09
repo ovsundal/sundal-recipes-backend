@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const usersRoutes = require("./routes/users-routes");
+const recipesRoutes = require("./routes/recipes-routes");
 const HttpError = require("./models/http-error");
 
 const app = express();
@@ -9,6 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use("/api/users/", usersRoutes);
+app.use("/api/recipes/", recipesRoutes);
 
 app.use((req, res, next) => {
   throw new HttpError("Route not found", 404);
