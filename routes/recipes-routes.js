@@ -1,8 +1,12 @@
 const express = require("express");
 const recipesController = require("../controllers/recipes-controller");
 const { check } = require("express-validator");
+const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
+
+// routes below this requires token verification
+router.use(checkAuth);
 
 router.post(
   "/addRecipe",
