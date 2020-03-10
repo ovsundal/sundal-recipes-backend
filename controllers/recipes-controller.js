@@ -2,6 +2,18 @@ const { validationResult } = require("express-validator");
 const HttpError = require("../models/http-error");
 const Recipe = require("../models/recipes-model");
 
+const getRecipes = async (req, res, next) => {
+  try {
+    const allRecipes = await Recipe.find({});
+
+    res.json({
+      recipes: allRecipes.map(recipe => recipe.toObject({ getters: true }))
+    });
+  } catch (e) {
+    return next(new HttpError("Could not retrieve recipes", 500));
+  }
+};
+
 const addRecipe = async (req, res, next) => {
   const errors = validationResult(req);
 
@@ -28,3 +40,4 @@ const addRecipe = async (req, res, next) => {
 };
 
 exports.addRecipe = addRecipe;
+exports.getRecipe = getRecipes;
