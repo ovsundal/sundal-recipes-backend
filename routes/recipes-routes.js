@@ -5,10 +5,7 @@ const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
-router.get(
-    "/getRecipes",
-    recipesController.getRecipe
-);
+router.get("/getRecipes", recipesController.getRecipes);
 
 // routes below this requires token verification
 router.use(checkAuth);

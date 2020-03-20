@@ -40,4 +40,4 @@ const addRecipe = async (req, res, next) => {
 };
 
 exports.addRecipe = addRecipe;
-exports.getRecipe = getRecipes;
+exports.getRecipes = getRecipes;
