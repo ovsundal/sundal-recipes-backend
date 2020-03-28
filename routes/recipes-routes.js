@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/getRecipes", recipesController.getRecipes);
 
 // routes below this requires token verification
-router.use(checkAuth);
+// router.use(checkAuth);
 
 router.post(
   "/addRecipe",
