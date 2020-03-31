@@ -17,17 +17,17 @@ const getRecipes = async (req, res, next) => {
 const addRecipe = async (req, res, next) => {
   const errors = validationResult(req);
 
+  console.log(errors);
+
   // body input error
   if (!errors.isEmpty()) {
     return next(new HttpError(`Invalid inputs passed, please try again`, 422));
   }
 
-  const { title, ingredients, instructions } = req.body;
+  const { recipe } = req.body;
 
   const createdRecipe = new Recipe({
-    title,
-    ingredients,
-    instructions
+    recipe
   });
 
   try {
@@ -36,7 +36,7 @@ const addRecipe = async (req, res, next) => {
     return next(new HttpError("Could not add recipe", 500));
   }
 
-  await res.status(201).json({ title, ingredients, instructions });
+  await res.status(201).json({ recipe });
 };
 
 exports.addRecipe = addRecipe;

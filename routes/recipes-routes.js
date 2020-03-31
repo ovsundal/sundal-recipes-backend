@@ -12,7 +12,7 @@ router.get("/getRecipes", recipesController.getRecipes);
 
 router.post(
   "/addRecipe",
-  [check("title").notEmpty(), check("ingredients").notEmpty()],
+  [check("recipe").notEmpty()],
   recipesController.addRecipe
 );
 
