@@ -1,3 +1,4 @@
+const { sanitize } = require("express-validator");
 const { validationResult } = require("express-validator");
 const HttpError = require("../models/http-error");
 const Recipe = require("../models/recipes-model");
@@ -17,17 +18,16 @@ const getRecipes = async (req, res, next) => {
 const addRecipe = async (req, res, next) => {
   const errors = validationResult(req);
 
-  console.log(errors);
-
   // body input error
   if (!errors.isEmpty()) {
     return next(new HttpError(`Invalid inputs passed, please try again`, 422));
   }
 
   const { recipe } = req.body;
+  const sanitizedRecipe = sanitize(recipe);
 
   const createdRecipe = new Recipe({
-    recipe
+    recipe: sanitizedRecipe
   });
 
   try {
