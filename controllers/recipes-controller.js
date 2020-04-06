@@ -1,4 +1,4 @@
-const { sanitize } = require("express-validator");
+const sanitize = require("sanitize-html");
 const { validationResult } = require("express-validator");
 const HttpError = require("../models/http-error");
 const Recipe = require("../models/recipes-model");
