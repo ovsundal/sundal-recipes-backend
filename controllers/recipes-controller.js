@@ -23,11 +23,12 @@ const addRecipe = async (req, res, next) => {
     return next(new HttpError(`Invalid inputs passed, please try again`, 422));
   }
 
-  const { recipe } = req.body;
+  const { recipe, recipeTitle } = req.body;
   const sanitizedRecipe = sanitize(recipe);
 
   const createdRecipe = new Recipe({
-    recipe: sanitizedRecipe
+    recipe: sanitizedRecipe,
+    title: recipeTitle
   });
 
   try {
