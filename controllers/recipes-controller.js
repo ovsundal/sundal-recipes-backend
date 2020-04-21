@@ -14,7 +14,7 @@ const getRecipe = async (req, res, next) => {
       recipes: recipe.map(recipe => recipe.toObject({ getters: true }))
     });
   } catch (e) {
-    return next(new HttpError("Could not retrieve recipes", 500));
+    return next(new HttpError("Could not retrieve recipe", 500));
   }
 };
 
