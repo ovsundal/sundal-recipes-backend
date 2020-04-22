@@ -21,7 +21,7 @@ const getRecipe = async (req, res, next) => {
 const getRecipes = async (req, res, next) => {
   try {
     const allRecipes = await Recipe.find({});
-
+    // TODO: only send recipe titles here
     res.json({
       recipes: allRecipes.map(recipe => recipe.toObject({ getters: true }))
     });
@@ -55,6 +55,32 @@ const addRecipe = async (req, res, next) => {
   await res.status(201).json({ recipe });
 };
 
+const updateRecipe = async (req, res, next) => {
+  const errors = validationResult(req);
+
+  // body input error
+  if (!errors.isEmpty()) {
+    return next(new HttpError(`Invalid inputs passed, please try again`, 422));
+  }
+
+  const { recipe, recipeTitle, recipeId } = req.body;
+
+  const sanitizedRecipe = sanitize(recipe);
+  const sanitizedRecipeTitle = sanitize(recipeTitle);
+  const sanitizedRecipeId = sanitize(recipeId);
+
+  try {
+    await Recipe.findByIdAndUpdate(sanitizedRecipeId, {
+      recipe: sanitizedRecipe,
+      title: sanitizedRecipeTitle
+    });
+  } catch (e) {
+    console.log(e);
+    return next(new HttpError("Could not update recipe", 500));
+  }
+};
+
 exports.addRecipe = addRecipe;
 exports.getRecipes = getRecipes;
 exports.getRecipe = getRecipe;
+exports.updateRecipe = updateRecipe;

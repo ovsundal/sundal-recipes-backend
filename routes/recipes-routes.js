@@ -16,5 +16,10 @@ router.post(
   [check("recipe").notEmpty()],
   recipesController.addRecipe
 );
+router.post(
+  "/updateRecipe",
+  [check("recipeId").notEmpty()],
+  recipesController.updateRecipe
+);
 
 module.exports = router;
