@@ -4,7 +4,7 @@ const { check } = require("express-validator");
 
 const router = express.Router();
 
-router.get("/getTags", tagsController.getTags());
+router.get("/getTags", tagsController.getTags);
 
 // routes below this requires token verification
 // router.use(checkAuth);
