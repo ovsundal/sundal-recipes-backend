@@ -41,7 +41,7 @@ const addRecipe = async (req, res, next) => {
   const { recipe, recipeTitle, recipeTags } = req.body;
   const sanitizedRecipe = sanitize(recipe);
   const sanitizedRecipeTitle = sanitize(recipeTitle);
-
+  // TODO: sanitize tags in both add and updateRecipe
   const createdRecipe = new Recipe({
     recipe: sanitizedRecipe,
     title: sanitizedRecipeTitle,
@@ -65,7 +65,7 @@ const updateRecipe = async (req, res, next) => {
     return next(new HttpError(`Invalid inputs passed, please try again`, 422));
   }
 
-  const { recipe, recipeTitle, recipeId } = req.body;
+  const { recipe, recipeTitle, recipeId, recipeTags } = req.body;
 
   const sanitizedRecipe = sanitize(recipe);
   const sanitizedRecipeTitle = sanitize(recipeTitle);
@@ -74,7 +74,8 @@ const updateRecipe = async (req, res, next) => {
   try {
     await Recipe.findByIdAndUpdate(sanitizedRecipeId, {
       recipe: sanitizedRecipe,
-      title: sanitizedRecipeTitle
+      title: sanitizedRecipeTitle,
+      tags: recipeTags
     });
   } catch (e) {
     console.log(e);
