@@ -23,11 +23,10 @@ const addTags = async (req, res, next) => {
     return next(new HttpError(`Invalid inputs passed, please try again`, 422));
   }
 
-  const { tags } = req.body;
-  const sanitizedTags = sanitize(tags);
-
+  const { name } = req.body;
+  const sanitizedName = sanitize(name);
   const createdTags = new Tags({
-    tags: sanitizedTags
+    name: sanitizedName
   });
 
   try {
@@ -36,7 +35,7 @@ const addTags = async (req, res, next) => {
     return next(new HttpError("Could not add tags", 500));
   }
 
-  await res.status(201).json({ tags });
+  await res.status(201).json({ name });
 };
 
 exports.addTags = addTags;

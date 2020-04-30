@@ -9,6 +9,6 @@ router.get("/getTags", tagsController.getTags);
 // routes below this requires token verification
 // router.use(checkAuth);
 
-router.post("/addTags", [check("tags").notEmpty()], tagsController.addTags);
+router.post("/addTags", [check("name").notEmpty()], tagsController.addTags);
 
 module.exports = router;
