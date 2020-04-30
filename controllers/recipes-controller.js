@@ -20,7 +20,7 @@ const getRecipe = async (req, res, next) => {
 
 const getRecipes = async (req, res, next) => {
   try {
-    const allRecipes = await Recipe.find({});
+    const allRecipes = await Recipe.find({}).populate("tags");
     // TODO: only send recipe titles here
     res.json({
       recipes: allRecipes.map(recipe => recipe.toObject({ getters: true }))
