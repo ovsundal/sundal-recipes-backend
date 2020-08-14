@@ -4,6 +4,8 @@ const { check } = require("express-validator");
 
 const router = express.Router();
 
+router.get("/verifyToken", usersController.verifyToken);
+
 router.post(
   "/signup",
   [check("username").notEmpty(), check("password").isLength({ min: 6 })],

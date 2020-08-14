@@ -89,5 +89,17 @@ const login = async (req, res, next) => {
   });
 };
 
+const verifyToken = async (req, res, next) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  try {
+    jwt.verify(token, process.env.JWT_KEY);
+    await res.status(204).json({});
+  } catch (e) {
+    return next(new HttpError(`Authentication failed!`, 401));
+  }
+};
+
 exports.signup = signup;
 exports.login = login;
+exports.verifyToken = verifyToken;
