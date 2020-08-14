@@ -9,7 +9,7 @@ router.get("/getRecipes", recipesController.getRecipes);
 router.get("/getRecipe", recipesController.getRecipe);
 
 // routes below this requires token verification
-// router.use(checkAuth);
+router.use(checkAuth);
 
 router.post(
   "/addRecipe",
