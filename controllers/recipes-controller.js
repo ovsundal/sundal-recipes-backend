@@ -81,6 +81,8 @@ const updateRecipe = async (req, res, next) => {
     console.log(e);
     return next(new HttpError("Could not update recipe", 500));
   }
+
+  await res.status(200).json({ recipe });
 };
 
 exports.addRecipe = addRecipe;
