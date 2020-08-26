@@ -41,11 +41,12 @@ const addRecipe = async (req, res, next) => {
   const { recipe, recipeTitle, recipeTags } = req.body;
   const sanitizedRecipe = sanitize(recipe);
   const sanitizedRecipeTitle = sanitize(recipeTitle);
-  // TODO: sanitize tags in both add and updateRecipe
+  const sanitizedRecipeTags = sanitize(JSON.stringify(recipeTags));
+
   const createdRecipe = new Recipe({
     recipe: sanitizedRecipe,
     title: sanitizedRecipeTitle,
-    tags: recipeTags
+    tags: JSON.parse(sanitizedRecipeTags)
   });
 
   try {
@@ -70,12 +71,13 @@ const updateRecipe = async (req, res, next) => {
   const sanitizedRecipe = sanitize(recipe);
   const sanitizedRecipeTitle = sanitize(recipeTitle);
   const sanitizedRecipeId = sanitize(recipeId);
+  const sanitizedRecipeTags = sanitize(JSON.stringify(recipeTags));
 
   try {
     await Recipe.findByIdAndUpdate(sanitizedRecipeId, {
       recipe: sanitizedRecipe,
       title: sanitizedRecipeTitle,
-      tags: recipeTags
+      tags: JSON.parse(sanitizedRecipeTags)
     });
   } catch (e) {
     console.log(e);
